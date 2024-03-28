@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import pandas as pd
 import numpy as np
 import constants as c
 
@@ -22,7 +23,7 @@ def multi_view(df):
         ax.set_yticks(range(0, 4), c.SEVERITY_LEVELS)
 
         # Set the limits of the x-axis to cover the entire range of dates
-        ax.set_xlim(min(df.index), max(df.index))
+        ax.set_xlim(min(df.index) - pd.Timedelta(days=c.PADDING), max(df.index) + pd.Timedelta(days=c.PADDING))
         # Rotate the x-axis labels for better readability
         ax.tick_params(axis='x', rotation=45)
         # Customize date ticks
@@ -71,40 +72,42 @@ def combined_view(df):
     plt.savefig(c.DESTINATION + 'Combined Moods Chart.png')
 
 
-def depression_sleep(df):
+def sleep_analysis(df):
     # Create figure and axis objects
-    fig, ax1 = plt.subplots()
+    fig, axs = plt.subplots(1, 2, figsize=(20, 8))
 
     # Plotting depression as bar graph
-    color = 'tab:green'
-    ax1.set_xlabel('Date')
-    ax1.set_ylabel('Depression Severity', color=color)
-    ax1.bar(df.index, df['DEPRESSED'], color=color, label='Depression')
-    ax1.set_ylim(0, 4)
-    ax1.tick_params(axis='y', labelcolor=color)
+    axs[0].bar(df.index, df['DEPRESSED'], color='g', label='Depression')
+    axs[0].set_title('Depression')
+    axs[1].bar(df.index, df['DEPRESSED'], color='g', label='Depression')
+    axs[1].set_title('Elevated')
 
-    # x ticks
-    # Set the limits of the x-axis to cover the entire range of dates
-    ax1.set_xlim(min(df.index), max(df.index))
-    # Rotate the x-axis labels for better readability
-    ax1.tick_params(axis='x', rotation=45)
-    # Customize date ticks
-    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Format the date ticks as YYYY-MM-DD
-    ax1.xaxis.set_major_locator(mdates.DayLocator(interval=c.DATE_INTERVAL))  # Set the interval between ticks to 7 days
+    for ax in axs:
+        ax.set_xlabel('Date')
+        ax.set_ylabel('Severity', color='g')
+        ax.set_ylim(0, 4)
+        ax.set_yticks(range(0, 4), c.SEVERITY_LEVELS, color='g')
 
-    # Creating a secondary y-axis for hours slept
-    ax2 = ax1.twinx()
-    color = 'tab:purple'
-    ax2.set_ylabel('Hours Slept', color=color)
-    ax2.plot(df.index, df['SLEEP'], color=color, label='Hours Slept')
-    ax2.tick_params(axis='y', labelcolor=color)
+        # x ticks
+        # Set the limits of the x-axis to cover the entire range of dates       
+        ax.set_xlim(min(df.index) - pd.Timedelta(days=c.PADDING), max(df.index) + pd.Timedelta(days=c.PADDING))
+        # Rotate the x-axis labels for better readability
+        ax.tick_params(axis='x', rotation=45)
+        # Customize date ticks
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Format the date ticks as YYYY-MM-DD
+        ax.xaxis.set_major_locator(mdates.DayLocator(interval=c.DATE_INTERVAL))  # Set the interval between ticks to 7 days
 
-    # Set ticks for hours slept on the right side
-    ax2.yaxis.set_label_position('right')
-    ax2.yaxis.set_ticks_position('right')
+        # Creating a secondary y-axis for hours slept
+        ax2 = ax.twinx()
+        ax2.set_ylabel('Hours Slept', color='purple')
+        ax2.plot(df.index, df['SLEEP'], color='purple', label='Hours Slept')
+        ax2.tick_params(axis='y', labelcolor='purple')
+
+        # Set ticks for hours slept on the right side
+        ax2.yaxis.set_label_position('right')
+        ax2.yaxis.set_ticks_position('right')
 
 
-    plt.title("Depression's Effect on Sleep")
-    plt.legend()
+    plt.suptitle("Sleep Analysis")
     plt.tight_layout()
-    plt.savefig(c.DESTINATION + 'Depression and Sleep Chart.png')
+    plt.savefig(c.DESTINATION + 'Sleep Analysis Chart.png')

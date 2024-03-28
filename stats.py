@@ -30,6 +30,4 @@ def episode_analysis(data):
             elif data.iloc[i] > 0:
                 counts.append(i - last_i - 1)
                 last_i = i
-    print(data)
-    print(counts)
     return {'episode_count': len(counts) + 1, 'days_between': sum(counts)/len(counts)}

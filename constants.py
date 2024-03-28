@@ -22,6 +22,9 @@ DESTINATION = 'out'
 # Number of days where another symptom is not considered a new episode.
 DAY_THRESHOLD = 2
 
+# Number of days to add on to either end of graphs for spacing
+PADDING = 3
+
 # -----------------------------------
 
 # DO NOT MODIFY

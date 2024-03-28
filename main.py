@@ -23,12 +23,12 @@ df_filled = df.set_index(c.DATE).reindex(complete_dates).fillna(0)
 plotter.multi_view(df_filled)
 plotter.combined_view(df_filled)
 
-df_sleep_filtered = df[(df['SLEEP'] != 0)]
-plotter.depression_sleep(df_sleep_filtered)
+df_sleep_filtered = df_filled[(df_filled['SLEEP'] != 0)]
+plotter.sleep_analysis(df_sleep_filtered)
 
 print('Done.')
-print('Output sent to "' + c.DESTINATION + '"')
 
 print('Calculating statistics...')
 stats.run(df_filled)
 print('Done.')
+print('Output sent to "' + c.DESTINATION + '"')
