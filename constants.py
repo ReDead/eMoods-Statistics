@@ -25,6 +25,9 @@ DAY_THRESHOLD = 2
 # Number of days to add on to either end of graphs for spacing
 PADDING = 3
 
+# Number of decimal places you want outputed.
+PRECISION = 2
+
 # -----------------------------------
 
 # DO NOT MODIFY

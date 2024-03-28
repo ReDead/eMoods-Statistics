@@ -79,7 +79,7 @@ def sleep_analysis(df):
     # Plotting depression as bar graph
     axs[0].bar(df.index, df['DEPRESSED'], color='g', label='Depression')
     axs[0].set_title('Depression')
-    axs[1].bar(df.index, df['DEPRESSED'], color='g', label='Depression')
+    axs[1].bar(df.index, df['ELEVATED'], color='b', label='Elevated')
     axs[1].set_title('Elevated')
 
     for ax in axs:
