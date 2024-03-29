@@ -25,12 +25,12 @@ There are a few different output files. They are all sent to the `DESTINATION` s
 
 ### Graphs
 
-The graphs are stored as pngs and include the following:
+The graphs are stored as pngs in the graph subdirectory and include the following:
 - **Moods Chart**: Displays all four tracked moods on four different graphs.
 - **Sleep Analysis Chart**: Displays two graphs comparing sleep to depressed and elevated mood.
 
-### Text
+### Data
 
-There are some text files that contain additional data which are the following:
-- **data.txt**: Simply contains the csv file reformatted into a much easier to read table.
-- **stats.txt**: Contains statistics calculated from the data.
+Data files are stored in the data subdirectory and contain a plaintext version along with an html version. Both are identical in data. The following are the provided data files:
+- **data.txt/data.html**: Simply contains the csv file reformatted into a much easier to read table.
+- **stats.txt/stats.html**: Contains statistics calculated from the data.

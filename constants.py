@@ -50,7 +50,6 @@ HTML_HEAD = '''<!DOCTYPE html>
         .container {{
             display: flex;
             flex-direction: column;
-            justify-content: center;
             width: 50%;
         }}
         table {{
