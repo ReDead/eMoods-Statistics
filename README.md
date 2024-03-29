@@ -13,7 +13,7 @@
 
 ## Execution
 
-To run the program, simply run the `main.py` file with python3.
+To run the program, simply run the `main.py` file with python3. You may have to install python3. You also may have to install the libraries used in this project. To do that, use the `pip` command. If you do not have that, you will have to install it as well.
 
 ## Configuration
 
