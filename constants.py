@@ -30,6 +30,46 @@ PRECISION = 2
 
 # -----------------------------------
 
+# HTML
+
+# You should not need to change this. However, if you would like to style your html outputs differently, feel free to alter it.
+HTML_HEAD = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <style>
+        h1 {{
+            text-align: center;
+        }}
+        body {{
+            display: flex;
+            justify-content: center;
+        }}
+        .container {{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+        }}
+        table {{
+            border-collapse: collapse;
+        }}
+        th, td {{
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }}
+        th {{
+            background-color: #f2f2f2;
+        }}
+    </style>
+</head>
+'''
+
+# -----------------------------------
+
 # DO NOT MODIFY
 
 DATE = 'DATE (YYYY-MM-DD)'
