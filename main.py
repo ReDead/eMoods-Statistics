@@ -5,6 +5,9 @@ import stats
 
 print('Reading from csv file...')
 df = pd.read_csv('eMoods-data/entry.csv')
+out = df.to_markdown(index=False, tablefmt='pipe', colalign=['center']*len(df.columns))
+with open(c.DESTINATION + 'data.txt', 'w') as file:
+    file.write(out)
 print('Done.')
 
 print('Filtering data and plotting...')
