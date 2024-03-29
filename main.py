@@ -29,6 +29,6 @@ plotter.sleep_analysis(df_sleep_filtered)
 print('Done.')
 
 print('Calculating statistics...')
-stats.run(df_filled)
+stats.run(df, df_filled)
 print('Done.')
 print('Output sent to "' + c.DESTINATION + '"')
