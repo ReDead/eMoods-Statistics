@@ -35,7 +35,7 @@ def multi_view(df):
 
     plt.suptitle('Moods from ' + df.index.min().strftime('%Y-%m-%d') + ' to ' + df.index.max().strftime('%Y-%m-%d'))
     plt.tight_layout()
-    plt.savefig(c.DESTINATION + 'Moods Chart.png')
+    plt.savefig(c.DESTINATION + 'graphs/Moods Chart.png')
 
 
 def combined_view(df):
@@ -69,7 +69,7 @@ def combined_view(df):
     plt.title('Moods Combined View')
     plt.legend()
     plt.tight_layout()
-    plt.savefig(c.DESTINATION + 'Combined Moods Chart.png')
+    plt.savefig(c.DESTINATION + 'graphs/Combined Moods Chart.png')
 
 
 def sleep_analysis(df):
@@ -110,4 +110,4 @@ def sleep_analysis(df):
 
     plt.suptitle("Sleep Analysis")
     plt.tight_layout()
-    plt.savefig(c.DESTINATION + 'Sleep Analysis Chart.png')
+    plt.savefig(c.DESTINATION + 'graphs/Sleep Analysis Chart.png')

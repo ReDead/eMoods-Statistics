@@ -32,5 +32,5 @@ The graphs are stored as pngs in the graph subdirectory and include the followin
 ### Data
 
 Data files are stored in the data subdirectory and contain a plaintext version along with an html version. Both are identical in data. The following are the provided data files:
-- **data.txt/data.html**: Simply contains the csv file reformatted into a much easier to read table.
+- **input.txt/input.html**: Simply contains the csv file you provided as input, reformatted into a much easier to read table.
 - **stats.txt/stats.html**: Contains statistics calculated from the data.

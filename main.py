@@ -2,12 +2,17 @@ import pandas as pd
 import plotter
 import constants as c
 import stats
+import pathlib
+
+pathlib.Path(c.DESTINATION).mkdir(parents=True, exist_ok=True)
+pathlib.Path(c.DESTINATION + '/graphs').mkdir(exist_ok=True)
+pathlib.Path(c.DESTINATION + '/data').mkdir(exist_ok=True)
 
 print('Reading from csv file...')
 df = pd.read_csv('eMoods-data/entry.csv')
-with open(c.DESTINATION + 'data.txt', 'w') as file:
+with open(c.DESTINATION + 'data/input.txt', 'w') as file:
     file.write(df.to_markdown(index=False, tablefmt='pipe', colalign=['center']*len(df.columns)))
-with open(c.DESTINATION + 'data.html', 'w') as file:
+with open(c.DESTINATION + 'data/input.html', 'w') as file:
     file.write(c.HTML_HEAD.format(title='eMoods Data') + '<body>\n' + df.to_html() + '</body>\n</html>\n')
 print('Done.')
 

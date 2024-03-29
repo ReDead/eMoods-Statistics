@@ -159,10 +159,10 @@ class stats:
 
 
 def run(df, df_filled):
-    with open(c.DESTINATION + 'stats.txt', 'w') as file:
+    with open(c.DESTINATION + 'data/stats.txt', 'w') as file:
         file.write(text.format(stats=stats(df, df_filled)))
     
-    with open(c.DESTINATION + 'stats.html', 'w') as file:
+    with open(c.DESTINATION + 'data/stats.html', 'w') as file:
         file.write(c.HTML_HEAD.format(title='Bipolar Statistics') + html.format(stats=stats(df, df_filled)))
 
 
