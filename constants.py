@@ -28,11 +28,15 @@ PADDING = 3
 # Number of decimal places you want outputed in the stats file
 PRECISION = 2
 
+# These are the colors used for the different moods
+# They go in this order: Depression, Elevated, Anxiety, Irritability
+MOOD_COLORS = ['g', 'b', 'purple', 'r']
+
 # -----------------------------------
 
 # HTML
-
 # You should not need to change this. However, if you would like to style your html outputs differently, feel free to alter it.
+
 HTML_HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,3 +78,5 @@ HTML_HEAD = '''<!DOCTYPE html>
 DATE = 'DATE (YYYY-MM-DD)'
 SEVERITY_LEVELS = ['None', 'Mild', 'Moderate', 'Severe']
 DESTINATION += '/' if DESTINATION[-1] != '/' else ''
+MOODS = ['DEPRESSED', 'ELEVATED', 'ANXIETY', 'IRRITABILITY']
+MOOD_TITLES = ['Depression', 'Elevated', 'Anxiety', 'Irritability']

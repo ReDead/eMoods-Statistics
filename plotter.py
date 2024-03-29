@@ -4,35 +4,39 @@ import pandas as pd
 import numpy as np
 import constants as c
 
+def individual_graph(ax, df, i):
+    ax.bar(df.index, df[c.MOODS[i]], color = c.MOOD_COLORS[i])
+    ax.set_title(c.MOOD_TITLES[i])
+
+    ax.set_ylim(0, 4)
+    ax.set_yticks(range(0, 4), c.SEVERITY_LEVELS)
+
+    # Set the limits of the x-axis to cover the entire range of dates
+    ax.set_xlim(min(df.index) - pd.Timedelta(days=c.PADDING), max(df.index) + pd.Timedelta(days=c.PADDING))
+    # Rotate the x-axis labels for better readability
+    ax.tick_params(axis='x', rotation=45)
+    # Customize date ticks
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Format the date ticks as YYYY-MM-DD
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=c.DATE_INTERVAL))  # Set the interval between ticks to 7 days
+
+    ax.set_xlabel('Date') 
+    ax.set_ylabel('Severity')
+
+def individual_graphs(df):
+    for i in range(4):
+        plt.figure()
+        ax = plt.subplot()
+        individual_graph(ax, df, i)
+        plt.tight_layout()
+        plt.savefig(c.DESTINATION + 'graphs/' + c.MOOD_TITLES[i] + ' Chart.png')
+
 def multi_view(df):
     # Create a figure and a grid of subplots
     fig, axs = plt.subplots(2, 2, figsize=(10, 8))  # 2 rows, 2 columns
 
-    # Plotting the data on each subplot
-    axs[0, 0].bar(df.index, df["DEPRESSED"], color = 'g', label='Depression')
-    axs[0, 0].set_title('Depression')
-    axs[0, 1].bar(df.index, df["ELEVATED"], color = 'b', label='Elevated')
-    axs[0, 1].set_title('Elevated')
-    axs[1, 0].bar(df.index, df["ANXIETY"], color = 'purple', label='Anxiety')
-    axs[1, 0].set_title('Anxiety')
-    axs[1, 1].bar(df.index, df["IRRITABILITY"], color = 'r', label='Irritability')
-    axs[1, 1].set_title('Irritability')
-
-    for ax in axs.flat:
-        ax.set_ylim(0, 4)
-        ax.set_yticks(range(0, 4), c.SEVERITY_LEVELS)
-
-        # Set the limits of the x-axis to cover the entire range of dates
-        ax.set_xlim(min(df.index) - pd.Timedelta(days=c.PADDING), max(df.index) + pd.Timedelta(days=c.PADDING))
-        # Rotate the x-axis labels for better readability
-        ax.tick_params(axis='x', rotation=45)
-        # Customize date ticks
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Format the date ticks as YYYY-MM-DD
-        ax.xaxis.set_major_locator(mdates.DayLocator(interval=c.DATE_INTERVAL))  # Set the interval between ticks to 7 days
-
-        ax.set_xlabel('Date') 
-        ax.set_ylabel('Severity') 
-
+    for i in range(4):
+        individual_graph(axs[(i & 2) >> 1, i & 1], df, i)
+    
     plt.suptitle('Moods from ' + df.index.min().strftime('%Y-%m-%d') + ' to ' + df.index.max().strftime('%Y-%m-%d'))
     plt.tight_layout()
     plt.savefig(c.DESTINATION + 'graphs/Moods Chart.png')
@@ -76,29 +80,11 @@ def sleep_analysis(df):
     # Create figure and axis objects
     fig, axs = plt.subplots(1, 2, figsize=(20, 8))
 
-    # Plotting depression as bar graph
-    axs[0].bar(df.index, df['DEPRESSED'], color='g', label='Depression')
-    axs[0].set_title('Depression')
-    axs[1].bar(df.index, df['ELEVATED'], color='b', label='Elevated')
-    axs[1].set_title('Elevated')
-
-    for ax in axs:
-        ax.set_xlabel('Date')
-        ax.set_ylabel('Severity', color='g')
-        ax.set_ylim(0, 4)
-        ax.set_yticks(range(0, 4), c.SEVERITY_LEVELS, color='g')
-
-        # x ticks
-        # Set the limits of the x-axis to cover the entire range of dates       
-        ax.set_xlim(min(df.index) - pd.Timedelta(days=c.PADDING), max(df.index) + pd.Timedelta(days=c.PADDING))
-        # Rotate the x-axis labels for better readability
-        ax.tick_params(axis='x', rotation=45)
-        # Customize date ticks
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Format the date ticks as YYYY-MM-DD
-        ax.xaxis.set_major_locator(mdates.DayLocator(interval=c.DATE_INTERVAL))  # Set the interval between ticks to 7 days
+    for i in range(2):
+        individual_graph(axs[i], df, i)
 
         # Creating a secondary y-axis for hours slept
-        ax2 = ax.twinx()
+        ax2 = axs[i].twinx()
         ax2.set_ylabel('Hours Slept', color='purple')
         ax2.plot(df.index, df['SLEEP'], color='purple', label='Hours Slept')
         ax2.tick_params(axis='y', labelcolor='purple')
@@ -111,3 +97,21 @@ def sleep_analysis(df):
     plt.suptitle("Sleep Analysis")
     plt.tight_layout()
     plt.savefig(c.DESTINATION + 'graphs/Sleep Analysis Chart.png')
+
+def weight_analysis(df, df_filtered):
+    plt.figure(figsize=(10, 8))
+    ax = plt.subplot()
+
+    individual_graph(ax, df, 0)
+
+    ax2 = ax.twinx()
+    ax2.set_ylabel('Weight (lbs)', color='purple')
+    ax2.plot(df_filtered.index, df_filtered['WEIGHT'], color='purple', label='Weight')
+    ax2.tick_params(axis='y', labelcolor='purple')
+
+    ax2.yaxis.set_label_position('right')
+    ax2.yaxis.set_ticks_position('right')
+
+    plt.suptitle("Weight Analysis")
+    plt.tight_layout()
+    plt.savefig(c.DESTINATION + 'graphs/Weight Analysis Chart.png')

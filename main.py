@@ -30,10 +30,13 @@ complete_dates = pd.date_range(start=df[c.DATE].min(), end=df[c.DATE].max())
 df_filled = df.set_index(c.DATE).reindex(complete_dates).fillna(0)
 
 plotter.multi_view(df_filled)
-plotter.combined_view(df_filled)
+# plotter.combined_view(df_filled)
+plotter.individual_graphs(df_filled)
 
 df_sleep_filtered = df_filled[(df_filled['SLEEP'] != 0)]
 plotter.sleep_analysis(df_sleep_filtered)
+df_weight_filtered = df_filled[(df_filled['WEIGHT'] != 0)]
+plotter.weight_analysis(df_filled, df_weight_filtered)
 
 print('Done.')
 
