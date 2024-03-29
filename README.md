@@ -18,3 +18,19 @@ To run the program, simply run the `main.py` file with python3. You may have to 
 ## Configuration
 
 This project includes a `constants.py` file which you can modify to alter the behavior of the program. It mostly just affects the output of the program. You can change certain styling aspects and where the output files are sent. However, **DO NOT** modify the variables below the `DO NOT MODIFY` line. These variables are used to make the program run correctly and interact with eMoods data correctly.
+
+## Output
+
+There are a few different output files. They are all sent to the `DESTINATION` specified in `constants.py`.
+
+### Graphs
+
+The graphs are stored as pngs and include the following:
+- **Moods Chart**: Displays all four tracked moods on four different graphs.
+- **Sleep Analysis Chart**: Displays two graphs comparing sleep to depressed and elevated mood.
+
+### Text
+
+There are some text files that contain additional data which are the following:
+- **data.txt**: Simply contains the csv file reformatted into a much easier to read table.
+- **stats.txt**: Contains statistics calculated from the data.
