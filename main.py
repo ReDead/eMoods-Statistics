@@ -1,7 +1,7 @@
 import pandas as pd
 import plotter
 import constants as c
-import stats
+import stats as s
 import pathlib
 
 pathlib.Path(c.DESTINATION).mkdir(parents=True, exist_ok=True)
@@ -13,7 +13,7 @@ df = pd.read_csv('eMoods-data/entry.csv')
 with open(c.DESTINATION + 'data/input.txt', 'w') as file:
     file.write(df.to_markdown(index=False, tablefmt='pipe', colalign=['center']*len(df.columns)))
 with open(c.DESTINATION + 'data/input.html', 'w') as file:
-    file.write(c.HTML_HEAD.format(title='eMoods Data') + '<body>\n' + df.to_html() + '</body>\n</html>\n')
+    file.write(c.HTML_TEMPLATE.format(title='eMoods Data', body=df.to_html()))
 print('Done.')
 
 print('Filtering data and plotting...')
@@ -41,6 +41,20 @@ plotter.weight_analysis(df_filled, df_weight_filtered)
 print('Done.')
 
 print('Calculating statistics...')
-stats.run(df, df_filled)
+stats = s.stats(df, df_filled)
+with open(c.DESTINATION + 'data/stats.txt', 'w') as file:
+    file.write(s.text.format(stats=stats))
+    
+with open(c.DESTINATION + 'data/stats.html', 'w') as file:
+    file.write(c.HTML_TEMPLATE.format(title='Bipolar Statistics', body=s.html.format(stats=stats)))
 print('Done.')
+
+print('Generating report...')
+with open(c.DESTINATION + 'Report.html', 'w') as file:
+    file.write(c.HTML_TEMPLATE.format(title='Mood Analysis Report', body=(
+            '<div class="container">\n<h1>Moods and Episodes</h1>\n<img src="graphs/Moods Chart.png">\n</div>\n' + s.html.format(stats=stats)
+            + '<div class="container" style="width: 100%;">\n<h1>Sleep and Weight</h1>\n<img src="graphs/Sleep Analysis Chart.png">\n<img src="graphs/Weight Analysis Chart.png">\n</div>\n'
+        )))
+print('Done.')
+
 print('Output sent to "' + c.DESTINATION + '"')

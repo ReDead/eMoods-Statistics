@@ -1,8 +1,7 @@
 import pandas as pd
 import constants as c
 
-html = '''<body>
-    <div class="container">
+html = '''  <div class="container">
         <h1>Bipolar Episode Statistics</h1>
 
         <h2>Totals</h2>
@@ -97,8 +96,6 @@ html = '''<body>
             </tr>
         </table>
     </div>
-</body>
-</html>
 '''
 
 text = '''Stats
@@ -156,14 +153,6 @@ class stats:
         self.episode_count = episode_count(df_filled)
         self.days_between = days_between(df_filled)
         self.duration = duration(df_filled)
-
-
-def run(df, df_filled):
-    with open(c.DESTINATION + 'data/stats.txt', 'w') as file:
-        file.write(text.format(stats=stats(df, df_filled)))
-    
-    with open(c.DESTINATION + 'data/stats.html', 'w') as file:
-        file.write(c.HTML_HEAD.format(title='Bipolar Statistics') + html.format(stats=stats(df, df_filled)))
 
 
 def episode_analysis(data):

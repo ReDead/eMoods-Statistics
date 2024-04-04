@@ -37,7 +37,7 @@ MOOD_COLORS = ['g', 'b', 'purple', 'r']
 # HTML
 # You should not need to change this. However, if you would like to style your html outputs differently, feel free to alter it.
 
-HTML_HEAD = '''<!DOCTYPE html>
+HTML_TEMPLATE = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,6 +50,7 @@ HTML_HEAD = '''<!DOCTYPE html>
         body {{
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }}
         .container {{
             display: flex;
@@ -67,8 +68,16 @@ HTML_HEAD = '''<!DOCTYPE html>
         th {{
             background-color: #f2f2f2;
         }}
+        img {{
+            max-height: 80vh;
+            object-fit: contain;
+        }}
     </style>
 </head>
+<body>
+{body}
+</body>
+</html>
 '''
 
 # -----------------------------------
