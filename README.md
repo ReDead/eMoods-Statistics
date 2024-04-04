@@ -21,7 +21,7 @@ This project includes a `constants.py` file which you can modify to alter the be
 
 ## Output
 
-There are a few different output files. They are all sent to the `DESTINATION` specified in `constants.py`.
+There are a few different output files. They are all sent to the `DESTINATION` specified in `constants.py`. If you want a general overview, check out the `Report.html` file. If you want to look at individual graphs and other information, or possibly create your own report, you can view the following:
 
 ### Graphs
 
